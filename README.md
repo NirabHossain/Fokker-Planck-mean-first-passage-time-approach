@@ -63,10 +63,10 @@ pip install numpy scipy matplotlib jupyter
 jupyter notebook mfpt_code.ipynb
 ```
 
-<!-- ## License
+## License
 
 Released for academic use. Please cite the report if you build on this work.
 
 ## Contact
 
-Nirab Hossain — [nirab@du.ac.bd](mailto:nirab@du.ac.bd) -->
+Nirab Hossain — [nirab.hossain@colorado.edu](mailto:nirab.hossain@colorado.edu)

@@ -4,16 +4,16 @@
 \label{sec:conclusions}
 % ------------------------------------------------------------
 
-We have used PDE tools from the course --- Fokker--Planck equations, adjoint
+PDE and numerics tools have been used from the course, i.e., Fokker--Planck equations, adjoint
 (backward) formulations, integration by parts and self-adjointness, conservative
-finite-difference discretisation, Crank--Nicolson time stepping --- to analyse
+finite-difference discretisation, Crank--Nicolson time stepping, to analyse
 mean first passage times in a spatially heterogeneous 1D environment.  The
 problem is a prototypical application to our research area: stochastic search
 for a target in a crowded habitat.
 
 The main analytical contributions are:
-\begin{itemize}[leftmargin=1.3em]
-\item a careful lattice derivation of both It\^o and Fick forms of the FPE
+\begin{itemize}[leftmargin=1.3em, noitemsep]
+\item a derivation of both It\^o and Fick forms of the FPE
 (Section~\ref{sec:derivation});
 \item the adjoint/backward derivation for Fick's form on a periodic ring with
 a $\delta$-type trap, including the flux-jump condition \eqref{eq:robin} and
@@ -28,7 +28,7 @@ elementary form.
 
 The main numerical contributions are threefold verification of the analytical
 result:
-\begin{itemize}[leftmargin=1.3em]
+\begin{itemize}[leftmargin=1.3em, noitemsep, label=$\blacksquare$]
 \item finite-difference solution of the backward equation, with empirical
 second-order convergence in $h$;
 \item Crank--Nicolson finite-difference time evolution of the forward FPE,

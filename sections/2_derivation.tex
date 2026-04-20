@@ -44,8 +44,7 @@ equation,
 \subsection{Symmetric exclusion and Fick's form}
 
 The It\^o form \eqref{eq:ito-fpe} follows from a rule in which the jump rate
-depends on the \emph{departure} site.  In symmetric exclusion (SEP), volume
-exclusion from the crowders restricts the \emph{arrival} site instead: a particle
+depends on the \emph{departure} site.  In symmetric exclusion process (SEP), volume exclusion from the crowders restricts the \emph{arrival} site instead: a particle
 at $x$ can hop to $x\pm h$ only if $x\pm h$ is empty.  If the probability that a
 site is occupied by a crowder is $\rho(x)$, then the effective outgoing rate is
 proportional to the fraction of empty neighbouring sites, $1-\rho(x\pm h)$,
@@ -73,6 +72,15 @@ do not bias the \emph{density} of labelled particles.  Since our biological
 motivation is foraging in a nest where a tracer bee should be uniform in the
 absence of a food source, we adopt Fick's form throughout.
 
+
+
+%Fick's form is chosen because it's the one where crowders slow you down without telling you where to go - which is exactly what should happen when there's no food source.
+%The Itô form would give p_inf(x) \propto 1/D(x), meaning the bee accumulates where diffusivity is low (crowded regions).
+%The Problem is: in the absence of food, the bee would appear to "prefer" crowded corridors - not because there's any food signal pulling it there, but purely as a mathematical artifact of how the noise is interpreted.
+%This means when you later add a food source and try to detect where the bee spends more time, your signal is contaminated:
+%
+%Is the bee there because of food, or because of spurious drift from crowding?
+
 A further practical advantage of Fick's form is that the operator
 $\mathcal{L}p=\partial_x[D(x)\,\partial_x p]$ is self-adjoint on a periodic
 domain: indeed, for any two smooth functions $f,g$ on $[-\pi,\pi]$ with periodic
@@ -80,7 +88,7 @@ data,
 \[
 \int_{-\pi}^{\pi} f\,\mathcal{L}g\;dx
 =\int_{-\pi}^{\pi} f\,(Dg')'\;dx
-=\underbrace{[f\,Dg']_{-\pi}^{\pi}}_{\substack{=0\\\text{periodicity}}}
+=\underbrace{[f\,Dg']_{-\pi}^{\pi}}_{\substack{=0\\\text{periodic}}}
 -\int_{-\pi}^{\pi} f'\,D\,g'\;dx,
 \]
 which is symmetric under $(f,g)\leftrightarrow(g,f)$.  Hence
@@ -103,7 +111,7 @@ and matching coefficients with Fick's form $\partial_t p=Dp''+D'p'$ gives:
 \begin{itemize}
 \item coefficient of $p''$: $\sigma^2/2 = D$, so $\sigma=\sqrt{2D}$;
 \item coefficient of $p'$: $-\mu + (\sigma^2)'= -\mu+2D'=D'$, so $\mu=D'$;
-\item coefficient of $p$: $-\mu'+\tfrac12(\sigma^2)''=-D''+D''=0$ \checkmark.
+\item coefficient of $p$: $-\mu'+\tfrac12(\sigma^2)''=-D''+D''=0$.
 \end{itemize}
 The It\^o SDE corresponding to Fick's form is therefore
 \begin{equation}

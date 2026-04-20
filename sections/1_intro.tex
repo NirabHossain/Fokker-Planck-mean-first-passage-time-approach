@@ -1,0 +1,41 @@
+% ------------------------------------------------------------
+\section{Introduction and motivation}
+% ------------------------------------------------------------
+
+Diffusive search in heterogeneous environments is ubiquitous: molecules searching
+for binding sites in a crowded cytoplasm~\cite{Elf2005,Metzler2014}, pedestrians
+in populated corridors, bees navigating a congested nest toward a food
+source~\cite{Peleg2018, Ocko2014}, and protein first passage in cellular
+consortia~\cite{Schuss2015,Benichou2010}.  In all of these systems, local crowder
+density modulates the particle's effective mobility; the diffusion coefficient
+becomes position-dependent, $D=D(x)$, rather than constant.  Even in the
+``slowly varying'' regime where the motion is still normal (mean-square
+displacement linear in time), a spatially heterogeneous $D(x)$ can substantially
+alter search times~\cite{Redner2001}.
+
+The central question of the present work is:
+\begin{quote}
+\itshape
+Given a partially absorbing target at $x=0$ with discoverability $\kappa$, does a
+spatially dependent diffusivity $D(x)$ speed up or slow down first passage
+relative to the homogeneous case $D\equiv D_0$?
+\end{quote}
+We derive the relevant Fokker--Planck equation from a microscopic lattice random
+walk, establish and solve the backward equation for the MFPT on the ring with
+periodic boundary conditions and a $\delta$-type trap, and carry out a complete
+case study for the piecewise-linear (``tent'') profile
+\begin{equation}
+D(x)\;=\;D_0 \;+\; D_1\!\left(1-\frac{|x|}{\pi}\right),
+\qquad x\in[-\pi,\pi]. \label{eq:tent}
+\end{equation}
+The analytic results are checked numerically by three independent methods:
+finite-difference on the backward equation, Crank--Nicolson on the forward FPE,
+and Monte Carlo simulation of the It\^o SDE.  This numerical component makes
+explicit the connection between the PDE formulation, the stochastic-process
+formulation, and the particle-level simulation~\cite{Gardiner2009,Pavliotis2014,Kloeden1992}.
+
+The work develops tools from the course (Fokker--Planck equations, adjoint
+formulations, boundary conditions, self-adjointness, conservative
+finite-difference discretisation, Crank--Nicolson time stepping) in a concrete
+setting where the answer is both analytically tractable and biologically
+meaningful.

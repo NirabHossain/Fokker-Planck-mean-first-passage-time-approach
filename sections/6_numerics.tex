@@ -1,0 +1,87 @@
+
+% ------------------------------------------------------------
+\section{Numerical methods}
+\label{sec:numerics}
+% ------------------------------------------------------------
+
+Throughout this section we fix $D_0=\kappa=1$ for concreteness; the dependence
+of every quantity on these parameters is explicit in the analytical formulas.
+The full Python/NumPy implementation is provided in the accompanying notebook
+\texttt{mfpt\_finiteDifference\_markov.ipynb}.  We compare three independent
+numerical methods against the analytical formula \eqref{eq:T-avg-tent}:
+
+\begin{itemize}
+\item A direct finite-difference solution of the backward equation
+  \eqref{eq:backwardODE}.
+\item A Crank--Nicolson finite-difference solution of the forward Fokker--Planck
+  equation \eqref{eq:forward}, from which the MFPT is recovered via survival
+  probabilities.
+\item A Monte Carlo simulation of the It\^o SDE \eqref{eq:ito-sde}.
+\end{itemize}
+
+\subsection{Finite-difference solution of the backward equation}
+
+The spatial grid is uniform with $N$ cells on the ring,
+$x_j=-\pi+j\,h$, $h=2\pi/N$, $j=0,\dots,N-1$, identifying $x_N\equiv x_0$.
+Midpoint diffusivities are $D_{j+1/2}=\tfrac12(D(x_j)+D(x_{j+1}))$.  The
+conservative (flux-form) second-order discretisation of
+$(D(x)T')'$ at node $j$ is
+\begin{equation}
+\mathcal{L}_h T
+=\frac{D_{j+1/2}(T_{j+1}-T_j)-D_{j-1/2}(T_j-T_{j-1})}{h^2},
+\label{eq:fd-stencil}
+\end{equation}
+which is a symmetric tridiagonal (with periodic wrap-around) and preserves
+self-adjointness of $\mathcal{L}$.  The $\delta$-sink at $x=0$ is approximated
+at the grid node $j_0$ nearest to $0$ by $-\kappa\,\delta(x)\,p\to-(\kappa/h)T_{j_0}$,
+which adds $-\kappa/h$ to the diagonal entry $A_{j_0,j_0}$.  The resulting
+linear system $A\,\mathbf{T}=-\mathbf{1}$ is solved with
+\texttt{scipy.sparse.linalg.spsolve}.  Without the sink, $A$ would have a
+one-dimensional null space (the constant vector); the sink breaks this kernel
+and renders the system non-singular.
+
+\subsection{Crank--Nicolson solution of the forward FPE}
+
+The same discrete generator is used in the forward problem: with the
+time-dependent state vector $\mathbf{p}(t)\in\mathbb{R}^N$, the semi-discrete
+system is
+\[
+\frac{d\mathbf{p}}{dt} \;=\; \mathcal{L}_h\,\mathbf{p},
+\]
+where $\mathcal{L}_h$ includes the discrete $\delta$-sink at $j_0$.  Time
+stepping is by Crank--Nicolson with step $\Delta t$:
+\[
+\Bigl(I - \tfrac{\Delta t}{2}\,\mathcal{L}_h\Bigr)\mathbf{p}^{n+1}
+=\Bigl(I + \tfrac{\Delta t}{2}\,\mathcal{L}_h\Bigr)\mathbf{p}^{n}.
+\]
+The implicit solve uses a pre-factored sparse LU decomposition
+(\texttt{scipy.sparse.linalg.factorized}); solving for multiple initial
+conditions simultaneously amounts to applying the solver to the columns of a
+single right-hand-side matrix.  The MFPT starting from $x_0$ is recovered from
+the survival probability $S(x_0,t)=h\sum_j p_j(t\mid x_0)$ via
+\[
+T(x_0)=\int_0^\infty\!S(x_0,t)\,dt
+\;\approx\; \operatorname{trapz}(S,t) + \text{tail correction}.
+\]
+The tail correction fits $\log S$ linearly on the last 20\% of the time grid
+to extract the leading exponential decay rate and then integrates analytically
+beyond $T_{\max}$.
+
+\subsection{Monte Carlo simulation of the It\^o SDE}
+
+Euler--Maruyama applied to \eqref{eq:ito-sde} gives
+\[
+x_{n+1} \;=\; x_n \;+\; D'(x_n)\,\Delta t \;+\; \sqrt{2\,D(x_n)\,\Delta t}\;\xi_n,
+\qquad \xi_n\sim\mathcal{N}(0,1),
+\]
+with $D'(x_n)=-D_1\,\mathrm{sign}(x_n)/\pi$ and periodic wrapping of positions.
+Partial absorption at the trap is implemented as a pointwise Poisson rule:
+whenever $|x_n|<\varepsilon$, a particle is absorbed with probability
+$p_{\rm abs}=\kappa\,\Delta t/(2\varepsilon)$ per step.  In the continuous
+limit $(\Delta t,\varepsilon)\to 0$ with
+$\varepsilon\gg\sqrt{2 D_{\max}\Delta t}$, the rule converges to the
+continuous $\kappa\,\delta(x)$ sink.  We run $M$ particles with uniformly
+random initial positions on $[-\pi,\pi]$ and record the first absorption
+time $\tau^{(m)}$.  The empirical mean $\hat T = M^{-1}\sum_m \tau^{(m)}$
+estimates $\langle T\rangle$; we also bin first-passage times by starting
+position to obtain a position-resolved $T(x_0)$.

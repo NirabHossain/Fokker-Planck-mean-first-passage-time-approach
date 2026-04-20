@@ -1,0 +1,62 @@
+
+% ------------------------------------------------------------
+\section{Conclusions}
+\label{sec:conclusions}
+% ------------------------------------------------------------
+
+We have used PDE tools from the course --- Fokker--Planck equations, adjoint
+(backward) formulations, integration by parts and self-adjointness, conservative
+finite-difference discretisation, Crank--Nicolson time stepping --- to analyse
+mean first passage times in a spatially heterogeneous 1D environment.  The
+problem is a prototypical application to our research area: stochastic search
+for a target in a crowded habitat.
+
+The main analytical contributions are:
+\begin{itemize}[leftmargin=1.3em]
+\item a careful lattice derivation of both It\^o and Fick forms of the FPE
+(Section~\ref{sec:derivation});
+\item the adjoint/backward derivation for Fick's form on a periodic ring with
+a $\delta$-type trap, including the flux-jump condition \eqref{eq:robin} and
+the solvability constant $C=\pi$ (Section~\ref{sec:backward});
+\item the general additive decomposition
+$\langle T\rangle=2\pi/\kappa+\pi^{-1}\!\int(\pi-y)^2/D(y)\,dy$
+\eqref{eq:T-avg-general};
+\item explicit closed forms for $T(x)$ and $\langle T\rangle$ on the tent
+profile, \eqref{eq:T-tent} and \eqref{eq:T-avg-tent}, with all integrals in
+elementary form.
+\end{itemize}
+
+The main numerical contributions are threefold verification of the analytical
+result:
+\begin{itemize}[leftmargin=1.3em]
+\item finite-difference solution of the backward equation, with empirical
+second-order convergence in $h$;
+\item Crank--Nicolson finite-difference time evolution of the forward FPE,
+with MFPT recovered via survival probabilities;
+\item Monte Carlo simulation of the It\^o SDE with a Poisson trap rule.
+\end{itemize}
+All three methods match the analytical closed form within their expected
+errors, demonstrating the connection between PDE, stochastic-process, and
+particle-level formulations.
+
+The principal qualitative insight is the role of the relationship between the
+trap strength $\kappa$ and the local diffusivity $D(0)$.  With $\kappa$
+constant, $\langle T\rangle$ is monotone in the tent parameter $D_1$, so there
+is no interior optimum and the additive decomposition \eqref{eq:T-avg-general}
+makes the trap contribution and the transport contribution independent.  When
+$\kappa$ depends on $D(0)$ the two contributions couple; for the biologically
+natural choice $\kappa=\kappa_0/D(0)$ a non-trivial optimum $D_1^*\approx -0.45$
+emerges, balancing the advantage of faster transport (large $D_1$) against
+the advantage of shorter dwell time at a slow-motion target (small $D_1$).
+This is a tidy, quantitative illustration of the speed--accuracy tradeoff that
+is thought to underlie many biological search
+strategies~\cite{Benichou2011,Peleg2018}.
+
+Natural extensions include: (i) non-symmetric diffusivity profiles (lifted
+via scale functions and speed measures~\cite{Pavliotis2014,Gardiner2009});
+(ii) noise-induced drift from asymmetric jump rates, giving
+$D(x)T''+\mu(x)T'=-1$ (taxis-like behaviour toward the target); (iii)
+subdiffusive regimes governed by fractional Fokker--Planck equations,
+for which $\langle T\rangle$ diverges~\cite{Metzler2000}; and (iv) the
+genuinely two- and three-dimensional problem with radially symmetric $D(r)$,
+relevant to nest geometries.

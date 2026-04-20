@@ -1,0 +1,142 @@
+
+% ------------------------------------------------------------
+\section{Backward equation, flux-jump condition, and MFPT}
+\label{sec:backward}
+% ------------------------------------------------------------
+
+Let $\tau=\inf\{t\ge 0:\text{absorbed}\}$ be the (random) first passage time and
+let $T(x)=\mathbb{E}[\tau\mid x_0=x]$ be the MFPT.
+
+\subsection{Derivation from the survival probability}
+
+Define the survival probability $S(x,t)=\Pr(\tau>t\mid x_0=x)$.  A standard
+calculation in stochastic processes~\cite{Gardiner2009,Pavliotis2014} shows that
+$S$ satisfies the backward equation
+\begin{equation}
+\partial_t S \;=\; \mathcal{L}^\dagger S, \qquad S(x,0)=1,\quad S(x,\infty)=0,
+\label{eq:survival-eq}
+\end{equation}
+where $\mathcal{L}^\dagger$ is the adjoint of the forward generator.
+From the integral representation $T(x)=\int_0^\infty S(x,t)\,dt$, integrating
+\eqref{eq:survival-eq} in $t$ from $0$ to $\infty$,
+\[
+\mathcal{L}^\dagger T
+=\mathcal{L}^\dagger\!\int_0^\infty\!S\,dt
+=\int_0^\infty\!\partial_t S\,dt
+=S(x,\infty)-S(x,0)
+=-1.
+\]
+For Fick's form the operator $\mathcal{L}$ is self-adjoint
+(Section~\ref{sec:derivation}), so $\mathcal{L}^\dagger=\mathcal{L}$ and the
+MFPT satisfies
+\begin{equation}
+\boxed{\;
+\frac{d}{dx}\!\left[D(x)\,\frac{dT}{dx}\right] \;=\; -1,
+\qquad x\in(-\pi,\pi)\setminus\{0\},
+\;}
+\label{eq:backwardODE}
+\end{equation}
+subject to periodic boundary conditions $T(-\pi)=T(\pi)$,
+$T'(-\pi)=T'(\pi)$ and the trap condition derived below.
+
+\subsection{Flux-jump condition at the trap}
+
+Integrating the forward equation \eqref{eq:forward} on $[-\varepsilon,\varepsilon]$ and
+letting $\varepsilon\to 0^+$,
+\[
+\frac{d}{dt}\!\int_{-\varepsilon}^{\varepsilon}\!p\,dx
+= \Bigl[D(x)\partial_x p\Bigr]_{-\varepsilon}^{\varepsilon}
+-\kappa\int_{-\varepsilon}^{\varepsilon}\!\delta(x)p\,dx,
+\]
+the left-hand side vanishes as $\varepsilon\to 0$ (by boundedness of $p$) and the
+$\delta$-integral picks up $p(0,t)$, yielding the \emph{flux-jump condition} for
+the forward problem:
+\begin{equation}
+D(0^+)\,\partial_x p\big|_{0^+}
+-D(0^-)\,\partial_x p\big|_{0^-}
+=\kappa\,p(0,t).
+\label{eq:jump-forward}
+\end{equation}
+Taking the adjoint of this condition yields the corresponding condition for the
+MFPT.  Because $D$ and $T$ are continuous at $x=0$ and, by the symmetry of
+$D(x)$, $T$ is an even function of $x$ so that $T'(0^-)=-T'(0^+)$, the adjoint
+flux-jump condition simplifies to the \emph{Robin-like} condition
+\begin{equation}
+\boxed{\;
+2\,D(0)\,T'(0^+) \;=\; \kappa\,T(0).
+\;}\label{eq:robin}
+\end{equation}
+
+\subsection{Closed-form solution of the backward equation}
+
+Equation~\eqref{eq:backwardODE} can be integrated directly.  On $(0,\pi)$,
+\[
+(D(x)T'(x))' \;=\; -1
+\quad\Longrightarrow\quad
+D(x)T'(x) \;=\; -x + C
+\quad\Longrightarrow\quad
+T'(x)=\frac{C-x}{D(x)},
+\]
+for an integration constant $C$.  By the symmetry $T(-x)=T(x)$ the same $C$
+appears on $(-\pi,0)$.  The constant $C$ is fixed by the periodic boundary
+condition $T'(\pi)=T'(-\pi)$.  Since by symmetry $T'(-\pi)=-T'(\pi)$, we need
+$T'(\pi)=0$, hence $D(\pi)\cdot 0 = C-\pi$, giving
+\begin{equation}
+C \;=\; \pi.
+\label{eq:C-pi}
+\end{equation}
+Integrating $T'(x)=(\pi-x)/D(x)$ from $0$ to $x>0$,
+\begin{equation}
+\boxed{\;
+T(x) \;=\; T(0) \;+\; \int_0^{|x|}\!\frac{\pi-y}{D(y)}\,dy.
+\;}\label{eq:T-of-x}
+\end{equation}
+
+It remains to determine $T(0)$.  From \eqref{eq:robin}, $T(0)=2D(0)T'(0^+)/\kappa
+=2\pi/\kappa$ using $D(0)T'(0^+)=C=\pi$.  Alternatively, integrating
+\eqref{eq:backwardODE} over the whole ring produces the same result as follows.
+The periodic contribution of $(DT')'$ vanishes, and the only surviving
+contribution comes from the flux jump at $x=0$, which by \eqref{eq:jump-forward}
+extracts $-\kappa T(0)$.  Hence
+\[
+-\kappa\,T(0) \;=\; \int_{-\pi}^{\pi}\!(-1)\,dx = -2\pi
+\quad\Longrightarrow\quad
+T(0) \;=\; \frac{2\pi}{\kappa}.
+\]
+
+\begin{remark}
+The two identities $C=\pi$ and $T(0)=2\pi/\kappa$ are consistent: they are
+respectively a local statement (flux conservation at the outermost boundary of
+the ring) and a global statement (integrated source matches absorbed flux).
+Both are independent of the profile $D(x)$.
+\end{remark}
+
+Putting it together,
+\begin{equation}
+\boxed{\;
+T(x) \;=\; \frac{2\pi}{\kappa} \;+\; \int_0^{|x|}\!\frac{\pi-y}{D(y)}\,dy.
+\;}\label{eq:T-final}
+\end{equation}
+The spatial average over $[-\pi,\pi]$, using Fubini to exchange the order of
+integration in the region $\{0\le y\le x\le\pi\}$, is
+\begin{align}
+\langle T\rangle
+&=\frac{1}{2\pi}\int_{-\pi}^\pi T(x)\,dx
+=\frac{2\pi}{\kappa}
++\frac{1}{\pi}\int_0^\pi\!\int_0^x\!\frac{\pi-y}{D(y)}\,dy\,dx \notag\\
+&=\frac{2\pi}{\kappa}
++\frac{1}{\pi}\int_0^\pi (\pi-y)\cdot\frac{\pi-y}{D(y)}\,dy
+=\frac{2\pi}{\kappa}
++\frac{1}{\pi}\int_0^\pi\!\frac{(\pi-y)^2}{D(y)}\,dy.
+\label{eq:T-avg-general}
+\end{align}
+Equation~\eqref{eq:T-avg-general} is the central analytical result of this
+report.  It exhibits an additive decomposition
+\[
+\langle T\rangle
+=\underbrace{\frac{2\pi}{\kappa}}_{\text{dwell time at the trap}}
++\underbrace{\frac{1}{\pi}\int_0^\pi\!\frac{(\pi-y)^2}{D(y)}\,dy}_{\text{travel time on the ring}}.
+\]
+With $\kappa$ constant the two contributions are independent; the spatial
+profile $D(x)$ affects only the travel term.  We return to the implications of
+this decomposition in Section~\ref{sec:kappa-stories}.

@@ -1,0 +1,28 @@
+We study the effect of a spatially varying diffusivity $D(x)$ on the mean first
+passage time (MFPT) to a partially absorbing target.  The motivation is foraging in
+crowded environments: local crowder density modulates the effective diffusion
+coefficient, raising the question of whether a non-uniform crowding profile can
+speed up or slow down search.  We work in 1D on the ring $[-\pi,\pi]$ with periodic
+boundary conditions and a partially absorbing trap of strength $\kappa$ at $x=0$,
+modelled by a $\delta$-sink in the Fokker--Planck equation.  The lattice random walk
+underlying the model is derived, and Fick's form
+$\partial_t p=\partial_x[D(x)\partial_x p]$ is justified by the symmetric exclusion
+process.  From the backward (adjoint) equation we obtain the MFPT in the closed
+form
+\[
+\langle T\rangle
+\;=\;\frac{2\pi}{\kappa}\;+\;\frac{1}{\pi}\!\int_0^\pi\!\frac{(\pi-y)^2}{D(y)}\,dy,
+\]
+which decomposes into an additive dwell plus travel time.
+For the piecewise-linear (tent) profile $D(x)=D_0+D_1(1-|x|/\pi)$ we evaluate the
+travel integral explicitly and recover a logarithmic closed form.  The analytical
+result is verified in three independent ways: (i) a finite-difference solution of
+the backward equation, with empirical second-order convergence; (ii) a
+Crank--Nicolson finite-difference solution of the forward Fokker--Planck equation,
+from whose survival probability the MFPT is recovered by time integration; and
+(iii) Monte Carlo simulation of the It\^o SDE $dx=D'(x)\,dt+\sqrt{2D(x)}\,dW$ with
+a Poisson trap rule.  All three numerical methods agree with the analytical
+formula within their expected error.  Finally, we examine three microscopic
+stories for $\kappa$ as a function of $D(0)$ and show that the biologically
+motivated $\kappa\propto 1/D(0)$ story is the only one producing a non-trivial
+optimal crowding level.

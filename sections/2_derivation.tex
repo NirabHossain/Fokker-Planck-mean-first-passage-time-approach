@@ -1,0 +1,138 @@
+
+% ------------------------------------------------------------
+\section{Derivation of the Fokker--Planck equation}
+\label{sec:derivation}
+% ------------------------------------------------------------
+
+\subsection{From a lattice random walk to a PDE}
+
+Consider a symmetric random walk on a 1D lattice with spacing $h$ and a
+position-dependent jump rate $\lambda(x)$.  Let $p(x,t)$ be the probability of
+finding the particle at site $x$ at time $t$.  Starting from a left/right
+symmetric rule,
+\[
+x \longrightarrow x\pm h \quad\text{at rate}\quad \lambda(x\pm h),
+\]
+the master equation is
+\begin{equation}
+\frac{\partial p(x,t)}{\partial t}
+= \lambda(x+h)\,p(x+h,t) + \lambda(x-h)\,p(x-h,t) - 2\lambda(x)\,p(x,t).
+\label{eq:master}
+\end{equation}
+Here the jump rate entering each incoming term is evaluated \emph{at the
+departure site}; a particle leaves $x\pm h$ at rate $\lambda(x\pm h)$.
+Taylor expanding $\lambda(x\pm h)p(x\pm h,t)$ about $x$,
+\[
+\lambda(x\pm h)\,p(x\pm h,t)
+= \lambda(x)\,p(x,t) \pm h\,\partial_x[\lambda(x)\,p(x,t)]
++ \tfrac{h^2}{2}\,\partial_x^2[\lambda(x)\,p(x,t)] + O(h^3),
+\]
+so that the first-order terms cancel upon summation and
+\begin{equation}
+\frac{\partial p}{\partial t}
+= h^2\,\partial_x^2\!\bigl[\lambda(x)\,p(x,t)\bigr] + O(h^4).
+\label{eq:nabla2lp}
+\end{equation}
+Taking the diffusive continuum limit $h\to 0$, $\lambda\to\infty$ with
+$D(x)\;=\;\lambda(x)\,h^2$ held fixed yields the \emph{It\^o form} Fokker--Planck
+equation,
+\begin{equation}
+\frac{\partial p}{\partial t} \;=\; \frac{\partial^2}{\partial x^2}\bigl[D(x)\,p\bigr].
+\label{eq:ito-fpe}
+\end{equation}
+
+\subsection{Symmetric exclusion and Fick's form}
+
+The It\^o form \eqref{eq:ito-fpe} follows from a rule in which the jump rate
+depends on the \emph{departure} site.  In symmetric exclusion (SEP), volume
+exclusion from the crowders restricts the \emph{arrival} site instead: a particle
+at $x$ can hop to $x\pm h$ only if $x\pm h$ is empty.  If the probability that a
+site is occupied by a crowder is $\rho(x)$, then the effective outgoing rate is
+proportional to the fraction of empty neighbouring sites, $1-\rho(x\pm h)$,
+times the intrinsic hop rate $\lambda_0$.  The master equation then takes the
+equivalent ``gradient'' form
+\[
+\frac{\partial p}{\partial t}
+=\lambda_0\Bigl\{[1-\rho(x)]\,p(x+h,t) + [1-\rho(x)]\,p(x-h,t) - [1-\rho(x+h) + 1-\rho(x-h)]\,p(x,t)\Bigr\},
+\]
+whose continuum limit, after an analogous Taylor expansion, yields
+\emph{Fick's form}:
+\begin{equation}
+\boxed{\;
+\frac{\partial p}{\partial t}
+= \frac{\partial}{\partial x}\!\left[D(x)\,\frac{\partial p}{\partial x}\right],
+\quad D(x)=\lambda_0 h^2\,[1-\rho(x)].
+\;}
+\label{eq:fick-fpe}
+\end{equation}
+The two forms differ in the equilibrium distribution they produce in the absence
+of flux.  The It\^o form has $p_\infty(x)\propto 1/D(x)$ (probability accumulates
+in regions of low diffusivity); Fick's form has uniform
+$p_\infty(x)=\mathrm{const}$, consistent with the SEP picture in which crowders
+do not bias the \emph{density} of labelled particles.  Since our biological
+motivation is foraging in a nest where a tracer bee should be uniform in the
+absence of a food source, we adopt Fick's form throughout.
+
+A further practical advantage of Fick's form is that the operator
+$\mathcal{L}p=\partial_x[D(x)\,\partial_x p]$ is self-adjoint on a periodic
+domain: indeed, for any two smooth functions $f,g$ on $[-\pi,\pi]$ with periodic
+data,
+\[
+\int_{-\pi}^{\pi} f\,\mathcal{L}g\;dx
+=\int_{-\pi}^{\pi} f\,(Dg')'\;dx
+=\underbrace{[f\,Dg']_{-\pi}^{\pi}}_{\substack{=0\\\text{periodicity}}}
+-\int_{-\pi}^{\pi} f'\,D\,g'\;dx,
+\]
+which is symmetric under $(f,g)\leftrightarrow(g,f)$.  Hence
+$\mathcal{L}^\dagger=\mathcal{L}$ on periodic $L^2(-\pi,\pi)$.  For the It\^o
+form the adjoint would differ by an extra $D'(x)T'(x)$ term, which is why the
+It\^o SDE carries a spurious noise-induced drift (see the next subsection).
+
+\subsection{The It\^o SDE associated with Fick's FPE}
+\label{sec:sde}
+
+The standard Fokker--Planck equation in drift--diffusion form is
+\[
+\partial_t p = -\partial_x(\mu p) + \tfrac12\,\partial_x^2(\sigma^2 p),
+\]
+corresponding to the It\^o SDE $dx = \mu(x)\,dt + \sigma(x)\,dW_t$.  Expanding
+\[
+\partial_x^2(\sigma^2 p)=(\sigma^2)''\,p+2(\sigma^2)'p'+\sigma^2 p'',
+\]
+and matching coefficients with Fick's form $\partial_t p=Dp''+D'p'$ gives:
+\begin{itemize}
+\item coefficient of $p''$: $\sigma^2/2 = D$, so $\sigma=\sqrt{2D}$;
+\item coefficient of $p'$: $-\mu + (\sigma^2)'= -\mu+2D'=D'$, so $\mu=D'$;
+\item coefficient of $p$: $-\mu'+\tfrac12(\sigma^2)''=-D''+D''=0$ \checkmark.
+\end{itemize}
+The It\^o SDE corresponding to Fick's form is therefore
+\begin{equation}
+\boxed{\;
+dx_t \;=\; D'(x_t)\,dt \;+\; \sqrt{2\,D(x_t)}\,dW_t.
+\;}\label{eq:ito-sde}
+\end{equation}
+The noise-induced drift $D'(x)$ is a consequence of the spatial dependence of
+$D$: without it, a naive discretisation of $dx=\sqrt{2D(x)}dW$ would produce the
+wrong stationary distribution.  For the tent profile \eqref{eq:tent},
+$D'(x) = -(D_1/\pi)\,\mathrm{sign}(x)$ on $[-\pi,\pi]\setminus\{0\}$ with a
+jump at $x=0$.
+
+\subsection{Domain and boundary conditions}
+\label{sec:bcs}
+
+We work on the periodic ring $x\in[-\pi,\pi]$ (so $x=-\pi$ is identified with
+$x=\pi$), with a single partially absorbing trap at $x=0$.  The trap is modelled
+by a $\delta$-sink of strength $\kappa>0$, so the full forward FPE reads
+\begin{equation}
+\partial_t p
+=\partial_x\!\bigl[D(x)\,\partial_x p\bigr]
+-\kappa\,\delta(x)\,p,
+\qquad
+p(-\pi,t)=p(\pi,t),\quad
+\partial_x p(-\pi,t)=\partial_x p(\pi,t).
+\label{eq:forward}
+\end{equation}
+The parameter $\kappa$ has units of velocity; $1/\kappa$ is the characteristic
+dwell time at the trap before absorption.  The limit $\kappa\to\infty$ recovers
+a fully absorbing trap (Dirichlet condition at $x=0$), while $\kappa\to 0$ gives
+the trap-free ring (total probability conserved).

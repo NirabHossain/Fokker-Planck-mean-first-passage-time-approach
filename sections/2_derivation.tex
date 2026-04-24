@@ -27,7 +27,7 @@ Taylor expanding $\lambda(x\pm h)p(x\pm h,t)$ about $x$,
 = \lambda(x)\,p(x,t) \pm h\,\partial_x[\lambda(x)\,p(x,t)]
 + \tfrac{h^2}{2}\,\partial_x^2[\lambda(x)\,p(x,t)] + O(h^3),
 \]
-so that the first-order terms cancel upon summation and
+so that the first-order terms cancel upon summation and\\[-.5ex]
 \begin{equation}
 \frac{\partial p}{\partial t}
 = h^2\,\partial_x^2\!\bigl[\lambda(x)\,p(x,t)\bigr] + O(h^4).
@@ -49,7 +49,7 @@ at $x$ can hop to $x\pm h$ only if $x\pm h$ is empty.  If the probability that a
 site is occupied by a crowder is $\rho(x)$, then the effective outgoing rate is
 proportional to the fraction of empty neighbouring sites, $1-\rho(x\pm h)$,
 times the intrinsic hop rate $\lambda_0$.  The master equation then takes the
-equivalent ``gradient'' form
+equivalent ``gradient'' form\\[-.5ex]
 \[
 \frac{\partial p}{\partial t}
 =\lambda_0\Bigl\{[1-\rho(x)]\,p(x+h,t) + [1-\rho(x)]\,p(x-h,t) - [1-\rho(x+h) + 1-\rho(x-h)]\,p(x,t)\Bigr\},
@@ -57,7 +57,7 @@ equivalent ``gradient'' form
 whose continuum limit, after an analogous Taylor expansion, yields
 \emph{Fick's form}:
 \begin{equation}
-\boxed{\;
+{\;
 \frac{\partial p}{\partial t}
 = \frac{\partial}{\partial x}\!\left[D(x)\,\frac{\partial p}{\partial x}\right],
 \quad D(x)=\lambda_0 h^2\,[1-\rho(x)].
@@ -105,17 +105,17 @@ The standard Fokker--Planck equation in drift--diffusion form is
 \]
 corresponding to the It\^o SDE $dx = \mu(x)\,dt + \sigma(x)\,dW_t$.  Expanding
 \[
-\partial_x^2(\sigma^2 p)=(\sigma^2)''\,p+2(\sigma^2)'p'+\sigma^2 p'',
+\partial_x^2(\sigma^2 p)=(\sigma^2)''\,p+2(\sigma^2)'p'+\sigma^2 p'',\\[-.5ex]
 \]
 and matching coefficients with Fick's form $\partial_t p=Dp''+D'p'$ gives:
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item coefficient of $p''$: $\sigma^2/2 = D$, so $\sigma=\sqrt{2D}$;
 \item coefficient of $p'$: $-\mu + (\sigma^2)'= -\mu+2D'=D'$, so $\mu=D'$;
 \item coefficient of $p$: $-\mu'+\tfrac12(\sigma^2)''=-D''+D''=0$.
 \end{itemize}
-The It\^o SDE corresponding to Fick's form is therefore
+The It\^o SDE corresponding to Fick's form is therefore\\[-.5ex]
 \begin{equation}
-\boxed{\;
+{\;
 dx_t \;=\; D'(x_t)\,dt \;+\; \sqrt{2\,D(x_t)}\,dW_t.
 \;}\label{eq:ito-sde}
 \end{equation}

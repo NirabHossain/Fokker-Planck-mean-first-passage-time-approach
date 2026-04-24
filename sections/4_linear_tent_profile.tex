@@ -14,15 +14,15 @@ $\alpha\equiv D_0+D_1=D(0)$ and $\beta\equiv D_1/\pi$; equivalently,
 $D(\pi)=D_0$.  For $D_1>0$ the diffusivity peaks at the trap; for $D_1<0$ it
 has a dip at the trap.  We restrict to $|D_1|<D_0$ to keep $D(x)>0$ everywhere.
 The profile and a few representative choices of $D_1$ are displayed in
-Figure~\ref{fig:tent-profile}.
+Figure~\ref{fig:tent-profile}. The profile is continuous but not differentiable at
+$x=0$.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.66\linewidth]{files/fig_tent_profile.pdf}
 \caption{Tent diffusivity profile $D(x)=D_0+D_1(1-|x|/\pi)$ for several values
-of $D_1$ ($D_0=1$).  Positive $D_1$ produces a peak at the trap $x=0$; negative
-$D_1$ produces a dip.  The profile is continuous but not differentiable at
-$x=0$.}
+of $D_1$ ($D_0=1$).  %Positive $D_1$ produces a peak at the trap $x=0$; negative $D_1$ produces a dip.  
+}
 \label{fig:tent-profile}
 \end{figure}
 
@@ -85,8 +85,7 @@ By~\eqref{eq:T-avg-general} the travel contribution is
 \Delta\!\langle T\rangle_{\rm trav}
 =\frac{1}{\pi}\int_0^\pi\!\frac{(\pi-y)^2}{D(y)}\,dy.
 \]
-Substituting $u=\pi-y$ (so $y=\pi-u$, $D(y)=D_0+D_1 u/\pi$, $dy=-du$, limits
-flip),
+Substituting $u=\pi-y$ (so $y=\pi-u$, $D(y)=D_0+D_1 u/\pi$, $dy=-du$),
 \[
 \int_0^\pi\!\frac{(\pi-y)^2}{D(y)}\,dy
 =\int_0^\pi\!\frac{u^2}{D_0+D_1 u/\pi}\,du.

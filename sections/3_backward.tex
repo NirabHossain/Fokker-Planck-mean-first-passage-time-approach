@@ -26,11 +26,11 @@ From the integral representation $T(x)=\int_0^\infty S(x,t)\,dt$, integrating
 =S(x,\infty)-S(x,0)
 =-1.
 \]
-For Fick's form the operator $\mathcal{L}$ is self-adjoint
+For Fick's form, the operator $\mathcal{L}$ is self-adjoint
 (Section~\ref{sec:derivation}), so $\mathcal{L}^\dagger=\mathcal{L}$ and the
 MFPT satisfies
 \begin{equation}
-\boxed{\;
+{\;
 \frac{d}{dx}\!\left[D(x)\,\frac{dT}{dx}\right] \;=\; -1,
 \qquad x\in(-\pi,\pi)\setminus\{0\},
 \;}
@@ -57,12 +57,13 @@ D(0^+)\,\partial_x p\big|_{0^+}
 =\kappa\,p(0,t).
 \label{eq:jump-forward}
 \end{equation}
-Taking the adjoint of this condition yields the corresponding condition for the
-MFPT.  Because $D$ and $T$ are continuous at $x=0$ and, by the symmetry of
-$D(x)$, $T$ is an even function of $x$ so that $T'(0^-)=-T'(0^+)$, the adjoint
-flux-jump condition simplifies to the \emph{Robin-like} condition
+Taking the adjoint of this condition (multiplying by $T$, integrating and transferring derivatives via integration by parts) yields 
+\[ D(0^+)\,T'{(0^+)}
+-D(0^-)\,T'{(0^-)}
+=\kappa\,T(0). \]
+With the symmetricity and continuity of $D(x)$ at $x=0$, we have $T'(0^-) = -T'(0^+)$ by symmetry of $T$ and the adjoint flux-jump condition then simplifies to the \emph{Robin-like} condition
 \begin{equation}
-\boxed{\;
+{\;
 2\,D(0)\,T'(0^+) \;=\; \kappa\,T(0).
 \;}\label{eq:robin}
 \end{equation}
@@ -87,7 +88,7 @@ C \;=\; \pi.
 \end{equation}
 Integrating $T'(x)=(\pi-x)/D(x)$ from $0$ to $x>0$,
 \begin{equation}
-\boxed{\;
+{\;
 T(x) \;=\; T(0) \;+\; \int_0^{|x|}\!\frac{\pi-y}{D(y)}\,dy.
 \;}\label{eq:T-of-x}
 \end{equation}
@@ -104,16 +105,16 @@ extracts $-\kappa T(0)$.  Hence
 T(0) \;=\; \frac{2\pi}{\kappa}.
 \]
 
-\begin{remark}
-The two identities $C=\pi$ and $T(0)=2\pi/\kappa$ are consistent: they are
-respectively a local statement (flux conservation at the outermost boundary of
-the ring) and a global statement (integrated source matches absorbed flux).
-Both are independent of the profile $D(x)$.
-\end{remark}
+%\begin{remark}
+%The two identities $C=\pi$ and $T(0)=2\pi/\kappa$ are consistent: they are
+%respectively a local statement (flux conservation at the outermost boundary of
+%the ring) and a global statement (integrated source matches absorbed flux).
+%Both are independent of the profile $D(x)$.
+%\end{remark}
 
 Putting it together,
 \begin{equation}
-\boxed{\;
+{\;
 T(x) \;=\; \frac{2\pi}{\kappa} \;+\; \int_0^{|x|}\!\frac{\pi-y}{D(y)}\,dy.
 \;}\label{eq:T-final}
 \end{equation}

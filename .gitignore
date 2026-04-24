@@ -33,3 +33,6 @@ build/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Folder
+present/

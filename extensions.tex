@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+
+\setlist[enumerate]{leftmargin=1.4em, itemsep=1pt, topsep=2pt}
+\setlist[itemize]{leftmargin=1.4em, itemsep=1pt, topsep=2pt}
+
+\title{\textbf{Extensions to the MFPT paper}\\[4pt]
+\large Todo memo}
+\author{Nirab Hossain\\[2pt]\small Department of Applied Mathematics, University of Colorado Boulder}
+\date{Summer 2026}
+
+\begin{document}
+\maketitle
+
+The three extensions below are ordered by dependency. Start with microscopic dynamics since it is self-contained and validates a claim the current paper asserts without testing. Then use that framework to study dynamic crowding in the fast/slow limits. Then add a second trap and look for symmetry breaking.
+
+\section*{1. Microscopic dynamics, discrete Markov chain to continuum limit}
+
+Generalize the Section 2.1 walk so the hop rate depends on local crowder occupancy. The current report asserts that SEP gives Fick's form, but never tests it.
+
+Lattice spacing $h$, tracer at site $x$, crowder occupancy $n(x) \in \{0,1\}$, hop rates
+\[
+W(x \to x \pm h) = \lambda_0 \, f\!\big(n(x), n(x\pm h)\big).
+\]
+Four candidate forms for $f$,
+\begin{itemize}
+  \item arrival-site exclusion, $f = 1 - n(x \pm h)$, expected to give Fick's form with $D(x) = \lambda_0 h^2 (1-\rho(x))$,
+  \item departure-site modulation, $f = 1 - n(x)$, expected to give the It\^o form,
+  \item both sites, $f = (1-n(x))(1-n(x\pm h))$, mixed,
+  \item Metropolis-like, $W \propto \exp[-\beta(E(x\pm h) - E(x))]$ with $E \propto \rho$, drift plus diffusion with a gradient-induced piece.
+\end{itemize}
+
+\textbf{Todo}
+\begin{enumerate}
+  \item For each rule, write the master equation, Taylor expand to $O(h^2)$, and identify $D(x)$, any drift $\mu(x)$, and the stationary distribution.
+  \item Simulate each rule on a lattice with one tracer and a frozen crowder background at density $\rho(x)$ matching the tent profile. Check that the empirical MFPT matches Eq.~15 with the predicted $D(x)$.
+\end{enumerate}
+
+\section*{2. Dynamic crowding, $D(x,t)$ coupled to absorption}
+
+Now let the crowders also hop. The decomposition in Eq.~15 breaks because $D$ depends on the absorption history. The coupled system is
+\begin{align*}
+\partial_t p &= \partial_x\!\big[D(\rho)\,\partial_x p\big] - \kappa(\rho(0,t))\,\delta(x)\,p, \\
+\partial_t \rho &= D_\rho\,\partial_x^2 \rho + S\big(p, J(0,t)\big), \quad J(0,t) = \kappa\,p(0,t),
+\end{align*}
+with $D(\rho) = D_0(1-\rho)$ from the rule chosen in Section 1. The source $S$ encodes how crowders react to absorption, depletion if pushed out, accumulation if recruited by a signal.
+
+The right axis of analysis is the timescale ratio $\tau_\rho / \tau_{\text{search}}$, where $\tau_{\text{search}} \approx 9.6$ from the homogeneous baseline.
+
+\textbf{Todo}
+\begin{enumerate}
+  \item Slow crowders, $\tau_\rho \gg \tau_{\text{search}}$. Frozen profile, current paper applies. Use as a sanity check.
+  \item Fast crowders, $\tau_\rho \ll \tau_{\text{search}}$. Quasi-steady $\rho$, nonlinear fixed-point problem for $\rho^*(x)$ and $D^*(x)$. Plug into Eq.~15 and compare to the static answer.
+  \item Comparable timescales. Extend the Crank--Nicolson solver to the coupled system, reusing the existing FD operator for both fields.
+  \item Check whether the story (III) optimum $D_1^* \approx -0.45$ survives, shifts, or disappears under feedback.
+\end{enumerate}
+
+\section*{3. Two traps, competition and bistability}
+
+Two partially absorbing traps at $x = \pm a$. With static $D$ the problem is linear and the splitting probability $\pi_+(x)$ solves $\partial_x[D(x)\partial_x \pi_+] = 0$, giving no bistability. Bistability requires the dynamic coupling from Section 2.
+
+\textbf{Todo}
+\begin{enumerate}
+  \item Static baseline. Derive $\langle T \rangle$ and the splitting probability for the tent profile, including the asymmetric extension $D(x) = D_0 + D_1(1 - |x-x_0|/\pi)$, to see how off-center peaks tilt the split.
+  \item Add the dynamic crowding from Section 2. Absorption at $+a$ depletes or recruits crowders locally, biasing future absorption. Order parameter, the flux ratio $J_+/J_-$.
+  \item Sweep the coupling strength and look for a pitchfork. Symmetric $J_+ = J_-$ below threshold, symmetry-broken above.
+  \item Sweep up and back down and check for hysteresis. Slow crowder relaxation should give a finite loop width.
+  \item Connect to ant-trail and pheromone-recruitment models (B\'enichou--Loverdo--Voituriez, Peleg--Mahadevan), which give the same bistability with many searchers. The single-searcher dynamic-crowder version is a cleaner toy model.
+\end{enumerate}
+
+\end{document}
